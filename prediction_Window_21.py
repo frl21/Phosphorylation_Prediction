@@ -230,7 +230,7 @@ x1 = BatchNormalization()(x)
 x = Conv1D(32, 3, padding='valid', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
 x1 = BatchNormalization()(x)
 
-for i in range(4):
+for i in range(9):
     x = Conv1D(32, 3, padding='valid', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
     x1 = BatchNormalization()(x)
     # x1 = Add()([x1,x])
