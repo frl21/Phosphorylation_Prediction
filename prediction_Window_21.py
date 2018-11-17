@@ -229,7 +229,7 @@ x1 = BatchNormalization()(x)
 x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(x1)
 x1 = BatchNormalization()(x)
 
-for i in range(20):
+for i in range(3):
     x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(x1)
     x = BatchNormalization()(x)
     x1 = Add()([x1,x])
@@ -258,7 +258,7 @@ model.summary()
 
 # Train The Model
 
-model_train = model.fit(train_X, train_Y, epochs=epochs, batch_size=32, 
+model_train = model.fit(train_X, train_Y, epochs=epochs, batch_size=128, 
                         validation_data=(valid_X, valid_Y), callbacks=callback_list)
 
 
