@@ -6,7 +6,7 @@ import keras
 import csv
 import matplotlib.pyplot as plt
 from keras.layers.core import Dense, Activation, Flatten, Dropout, Reshape
-from keras.layers import Conv1D, Embedding, BatchNormalization, Input, Add, GlobalAveragePooling1D
+from keras.layers import Conv1D, Embedding, BatchNormalization, Input, Add, GlobalAveragePooling1D, GlobalMaxPooling1D
 from keras.models import Sequential
 from keras.preprocessing.text import Tokenizer
 from sklearn.model_selection import train_test_split
@@ -210,9 +210,6 @@ randomS = 16
 train_X, valid_X, train_Y, valid_Y = train_test_split(dataset_X_token, dataset_Y_onehot, 
                                                       test_size=validation_size, random_state=randomS)
 
-import pdb
-pdb.set_trace()
-
 # Validation
 
 print('Training sample shape: ', train_X.shape)
@@ -238,7 +235,9 @@ for i in range(2):
     x = BatchNormalization()(x)
     x1 = Add()([x1,x])
 
-x = Flatten()(x1)
+# x = Flatten()(x1)
+# x = GlobalAveragePooling1D()(x1)
+x = GlobalMaxPooling1D()(x1)
 
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
