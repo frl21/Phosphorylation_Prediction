@@ -230,12 +230,12 @@ x1 = BatchNormalization()(x)
 x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
 x1 = BatchNormalization()(x)
 
-for i in range(20):
+for i in range(2):
     x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
     x = BatchNormalization()(x)
     x1 = Add()([x1,x])
 
-x = GlobalAveragePooling1D()(x1)
+x = Flatten()(x1)
 
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
