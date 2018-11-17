@@ -231,7 +231,7 @@ x = BatchNormalization()(x)
 x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False)(x)
 x1 = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
 
-for i in range(3):
+for i in range(20):
     x = BatchNormalization()(x1)
     x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False)(x)
     x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
