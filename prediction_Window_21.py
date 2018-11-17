@@ -220,7 +220,7 @@ print('Validation label shape: ', valid_Y.shape)
 # Neural Network Modeling
 
 epochs = 100
-l2_rate = 0.1
+l2_rate = 0.01
 
 inp = Input(shape=(21,))
 x = Embedding(20, 10, input_length=21)(inp)
@@ -230,7 +230,7 @@ x1 = BatchNormalization()(x)
 x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
 x1 = BatchNormalization()(x)
 
-for i in range(3):
+for i in range(1):
     x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
     x = BatchNormalization()(x)
     x1 = Add()([x1,x])
