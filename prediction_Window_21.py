@@ -205,7 +205,7 @@ dataset_Y_onehot = to_categorical(dataset_Y)
 
 # Spliting Dataset
 
-validation_size = 0.2
+validation_size = 0.1
 randomS = 16
 train_X, valid_X, train_Y, valid_Y = train_test_split(dataset_X_token, dataset_Y_onehot, 
                                                       test_size=validation_size, random_state=randomS)
