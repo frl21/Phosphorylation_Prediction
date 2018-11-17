@@ -227,17 +227,17 @@ x = Embedding(20, 10, input_length=21)(inp)
 x1 = BatchNormalization()(x)
 # x = Flatten()(x)
 
-x = Conv1D(32, 3, padding='same', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
+x = Conv1D(32, 3, padding='valid', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
 x1 = BatchNormalization()(x)
 
 for i in range(2):
-    x = Conv1D(32, 3, padding='same', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
-    x = BatchNormalization()(x)
-    x1 = Add()([x1,x])
+    x = Conv1D(32, 3, padding='valid', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
+    x1 = BatchNormalization()(x)
+    # x1 = Add()([x1,x])
 
-# x = Flatten()(x1)
+x = Flatten()(x1)
 # x = GlobalAveragePooling1D()(x1)
-x = GlobalMaxPooling1D()(x1)
+# x = GlobalMaxPooling1D()(x1)
 
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
