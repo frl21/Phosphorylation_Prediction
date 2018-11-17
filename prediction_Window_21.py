@@ -231,7 +231,7 @@ x = Conv1D(128, 3, padding='same', activation='relu', kernel_initializer='he_uni
 x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
 x1 = BatchNormalization()(x)
 
-for i in range(10):
+for i in range(20):
     x = Conv1D(128, 3, padding='same', activation='relu', kernel_initializer='he_uniform')(x1)
     x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
     x = BatchNormalization()(x)
