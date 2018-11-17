@@ -210,6 +210,9 @@ randomS = 16
 train_X, valid_X, train_Y, valid_Y = train_test_split(dataset_X_token, dataset_Y_onehot, 
                                                       test_size=validation_size, random_state=randomS)
 
+import pdb
+pdb.set_trace()
+
 # Validation
 
 print('Training sample shape: ', train_X.shape)
