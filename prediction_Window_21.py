@@ -220,7 +220,7 @@ print('Validation label shape: ', valid_Y.shape)
 # Neural Network Modeling
 
 epochs = 200
-l2_rate = 0
+l2_rate = 0.01
 
 inp = Input(shape=(21,))
 x = Embedding(20, 10, input_length=21)(inp)
