@@ -241,20 +241,22 @@ x = Flatten()(x1)
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
 
-model.compile(loss='categorical_crossentropy', optimizer='SGD', metrics=['accuracy'])
+lr = 0.1
+opt = keras.optimizers.SGD(lr=0.01, momentum=0.9, decay=1e-4, nesterov=True)
+model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
-def scheduler(epoch):
-    if epoch > 60:
-        return 0.00001
-    elif epoch > 30:
-        return 0.0001
-    else:
-        return 0.001 
+# def scheduler(epoch):
+#     if epoch > 60:
+#         return lr/100.
+#     elif epoch > 30:
+#         return lr/10.
+#     else:
+#         return lr 
 
-lr_schedule= LearningRateScheduler(scheduler)
+# lr_schedule= LearningRateScheduler(scheduler)
 checkpoint = ModelCheckpoint('weight_best.hdf5', monitor='val_loss', verbose=0, save_best_only=True, 
                              save_weights_only=False, mode='auto', period=1)
-callback_list = [checkpoint, lr_schedule]
+callback_list = [checkpoint]
 
 model.summary()
 
