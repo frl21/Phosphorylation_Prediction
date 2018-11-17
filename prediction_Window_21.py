@@ -224,13 +224,13 @@ l2_rate = 0.1
 
 inp = Input(shape=(21,))
 x = Embedding(20, 10, input_length=21)(inp)
-x1 = BatchNormalization()(x)
+x = BatchNormalization()(x)
 # x = Flatten()(x)
 
-x = Conv1D(32, 3, padding='same', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x1)
+x1 = Conv1D(32, 3, padding='same', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x)
 
 for i in range(9):
-    x = BatchNormalization()(x)
+    x = BatchNormalization()(x1)
     x = Conv1D(32, 3, padding='same', activation='elu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x)
     x1 = Add()([x1,x])
 
