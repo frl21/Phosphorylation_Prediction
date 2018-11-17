@@ -242,7 +242,7 @@ predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
 
 lr = 0.001
-opt = keras.optimizers.SGD(lr=lr, momentum=0.9, decay=1e-4, nesterov=True)
+opt = keras.optimizers.SGD(lr=lr, momentum=0.1, decay=1e-4, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
 # def scheduler(epoch):
