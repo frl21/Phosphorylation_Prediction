@@ -235,7 +235,7 @@ for i in range(2):
     x = BatchNormalization()(x)
     x1 = Add()([x1,x])
 
-x = GlobalAveragePooling1D()(x)
+x = GlobalAveragePooling1D()(x1)
 
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
