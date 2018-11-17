@@ -227,11 +227,11 @@ x = Embedding(20, 10, input_length=21)(inp)
 x = BatchNormalization()(x)
 # x = Flatten()(x)
 
-x1 = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x)
+x1 = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False)(x)
 
 for i in range(3):
     x = BatchNormalization()(x1)
-    x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), bias_regularizer=regularizers.l2(l2_rate))(x)
+    x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False(x)
     x1 = Add()([x1,x])
 
 # x = Flatten()(x1)
