@@ -238,6 +238,7 @@ for i in range(20):
 x = GlobalAveragePooling1D()(x1)
 # x = GlobalMaxPooling1D()(x1)
 
+x = BatchNormalization()(x)
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
 
