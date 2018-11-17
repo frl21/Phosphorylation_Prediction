@@ -245,11 +245,11 @@ model.compile(loss='categorical_crossentropy', optimizer='SGD', metrics=['accura
 
 def scheduler(epoch):
     if epoch > 60:
-        return 0.001
+        return 0.00001
     elif epoch > 30:
-        return 0.01
+        return 0.0001
     else:
-        return 0.1 
+        return 0.001 
 
 lr_schedule= LearningRateScheduler(scheduler)
 checkpoint = ModelCheckpoint('weight_best.hdf5', monitor='val_loss', verbose=0, save_best_only=True, 
