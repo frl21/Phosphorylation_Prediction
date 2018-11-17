@@ -243,7 +243,7 @@ model = Model(inputs=inp, outputs=predictions)
 
 lr = 0.0001
 # opt = keras.optimizers.SGD(lr=lr, momentum=0.9, decay=1e-4, nesterov=True)
-opt = keras.optimizers.Adam(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-8, decay=1e-4, amsgrad=False)
+opt = keras.optimizers.Adam(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=1e-8, decay=1e-6, amsgrad=False)
 model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
 # def scheduler(epoch):
