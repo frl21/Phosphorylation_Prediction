@@ -226,54 +226,28 @@ x = Embedding(20, 10, input_length=21)(inp)
 x1 = BatchNormalization()(x)
 # x = Flatten()(x)
 
-x = Conv1D(128, 3, padding='same', activation='relu', kernel_initializer='he_uniform')(x1)
+x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(x1)
 x1 = BatchNormalization()(x)
 
 for i in range(20):
-    x = Conv1D(128, 3, padding='same', activation='relu', kernel_initializer='he_uniform')(x1)
+    x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(x1)
     x = BatchNormalization()(x)
     x1 = Add()([x1,x])
 
-# x = Dense(128, activation='relu', kernel_initializer='he_uniform')(x)
-# x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
-# x1 = BatchNormalization()(x)
-
-# x = Dense(128, activation='relu', kernel_initializer='he_uniform')(x1)
-# x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
-# x = BatchNormalization()(x)
-# x1 = Add()([x1,x])
-
-# x = Dense(128, activation='relu', kernel_initializer='he_uniform')(x1)
-# x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
-# x = BatchNormalization()(x)
-# x1 = Add()([x1,x])
-
-# x = Flatten()(x)
 x = GlobalAveragePooling1D()(x)
 
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
 
-# model = Sequential()
-# model.add(Embedding(20, 128, input_length=21))
-# model.add(Flatten())
-# model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
-# model.add(Dropout(DROPOUT_RATE, noise_shape=None, seed=None))
-# model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
-# model.add(Dropout(DROPOUT_RATE, noise_shape=None, seed=None))
-# model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
-# model.add(Dropout(DROPOUT_RATE, noise_shape=None, seed=None))
-# model.add(Dense(2, activation='softmax'))
-
-model.compile(loss='categorical_crossentropy', optimizer='SGD', metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 def scheduler(epoch):
     if epoch > 60:
-        return 0.001
+        return 0.00001
     elif epoch > 30:
-        return 0.01
+        return 0.0001
     else:
-        return 0.1 
+        return 0.001 
 
 lr_schedule= LearningRateScheduler(scheduler)
 checkpoint = ModelCheckpoint('weight_best.hdf5', monitor='val_loss', verbose=0, save_best_only=True, 
