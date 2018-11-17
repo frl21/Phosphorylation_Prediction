@@ -220,7 +220,6 @@ print('Validation label shape: ', valid_Y.shape)
 # Neural Network Modeling
 
 epochs = 100
-DROPOUT_RATE = 0.2
 
 inp = Input(shape=(21,))
 x = Embedding(20, 10, input_length=21)(inp)
@@ -228,12 +227,10 @@ x1 = BatchNormalization()(x)
 # x = Flatten()(x)
 
 x = Conv1D(128, 3, padding='same', activation='relu', kernel_initializer='he_uniform')(x1)
-x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
 x1 = BatchNormalization()(x)
 
 for i in range(20):
     x = Conv1D(128, 3, padding='same', activation='relu', kernel_initializer='he_uniform')(x1)
-    x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
     x = BatchNormalization()(x)
     x1 = Add()([x1,x])
 
