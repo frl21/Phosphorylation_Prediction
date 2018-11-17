@@ -242,15 +242,15 @@ x = Flatten()(x1)
 predictions = Dense(2, activation='softmax')(x)
 model = Model(inputs=inp, outputs=predictions)
 
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer='SGD', metrics=['accuracy'])
 
 def scheduler(epoch):
     if epoch > 60:
-        return 0.00001
+        return 0.001
     elif epoch > 30:
-        return 0.0001
+        return 0.01
     else:
-        return 0.001 
+        return 0.1 
 
 lr_schedule= LearningRateScheduler(scheduler)
 checkpoint = ModelCheckpoint('weight_best.hdf5', monitor='val_loss', verbose=0, save_best_only=True, 
