@@ -222,18 +222,19 @@ print('Validation label shape: ', valid_Y.shape)
 epochs = 200
 l2_rate = 0.01
 DROPOUT_RATE = 0.5
+WIDTH = 128
 
 inp = Input(shape=(21,))
-x = Embedding(20, 10, input_length=21)(inp)
+x = Embedding(20, 20, input_length=21)(inp)
 x = BatchNormalization()(x)
 # x = Flatten()(x)
 
-x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False)(x)
+x = Conv1D(WIDTH, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False)(x)
 x1 = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
 
 for i in range(20):
     x = BatchNormalization()(x1)
-    x = Conv1D(32, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False)(x)
+    x = Conv1D(WIDTH, 3, padding='same', activation='relu', kernel_initializer='he_uniform', kernel_regularizer=regularizers.l2(l2_rate), use_bias=False)(x)
     x = Dropout(DROPOUT_RATE, noise_shape=None, seed=None)(x)
     x1 = Add()([x1,x])
 
